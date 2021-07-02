@@ -34,7 +34,7 @@ export default {
   }, 
   async mounted () {
     try {
-      const response = await fetch('http://bdelvalle.ngrok.io/pollResponses');
+      const response = await fetch('https://bdelvalle.ngrok.io/pollResponses');
       const { votes } = await response.json();
       if (votes.length) {
         this.votesFromApi = votes;
