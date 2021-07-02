@@ -36,7 +36,7 @@ export default {
     try {
       const response = await fetch('http://localhost:3000/pollResponses');
       const { votes } = await response.json();
-      if (votes.length) {
+      if (votes && votes.length) {
         this.votesFromApi = votes;
       }
       this.sortVotes();      
