@@ -49,7 +49,7 @@ export default {
 .cake-column {
   width: 30%;
   min-height: 100%;
-  margin: 0 10px;
+  margin: 0 20px;
 }
 
 h3 {
