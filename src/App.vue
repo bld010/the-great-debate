@@ -1,17 +1,48 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>The Great Debate</h1>
+    <Votes :pieVotes="pieVotes" :cakeVotes="cakeVotes" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Votes from './components/Votes.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Votes,
+  }, 
+  data: function () {
+    return {
+      votesFromApi: [],
+      cakeVotes: [],
+      pieVotes: []
+    }
+  },
+  methods: {
+    sortVotes() {
+      this.votesFromApi.forEach(voteObject => {
+        console.log(voteObject)
+        if (voteObject.vote === "5") {
+          this.cakeVotes.push(voteObject)
+        } else {
+          this.pieVotes.push(voteObject)
+        }
+      })
+    }
+  }, 
+  async mounted () {
+    try {
+      const response = await fetch('http://bdelvalle.ngrok.io/pollResponses');
+      const { votes } = await response.json();
+      if (votes.length) {
+        this.votesFromApi = votes;
+      }
+      this.sortVotes();      
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 </script>
